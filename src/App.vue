@@ -1,15 +1,42 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <SearchBar @termChange="onTermChange"/>
+    <div class="row">
+      <VideoDetail :video="selectedVideo"/>
+      <VideoList :videos="videos" @videoSelect="onVideoSelect" />
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import SearchBar from './components/SearchBar.vue'
+import VideoList from './components/VideoList.vue'
+import VideoDetail from './components/VideoDetail.vue'
+
+import { search } from './api/search'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    SearchBar,
+    VideoList,
+    VideoDetail
+},
+  data() {
+    return {
+      videos: [],
+      selectedVideo: null
+    };
+  },
+  methods: {
+    async onTermChange(searchTerm) {
+      this.videos = await search(searchTerm);
+    },
+
+    onVideoSelect(video) {
+      this.selectedVideo = video
+    }
   }
 }
 </script>
