@@ -8,36 +8,23 @@
   </div>
 </template>
 
-<script>
-
+<script setup>
 import SearchBar from './components/SearchBar.vue'
 import VideoList from './components/VideoList.vue'
 import VideoDetail from './components/VideoDetail.vue'
 
 import { search } from './api/search'
+import { ref } from 'vue'
 
-export default {
-  name: 'App',
-  components: {
-    SearchBar,
-    VideoList,
-    VideoDetail
-},
-  data() {
-    return {
-      videos: [],
-      selectedVideo: null
-    };
-  },
-  methods: {
-    async onTermChange(searchTerm) {
-      this.videos = await search(searchTerm);
-    },
+const videos = ref([]);
+const selectedVideo = ref(null);
 
-    onVideoSelect(video) {
-      this.selectedVideo = video
-    }
-  }
+const onTermChange = async(searchTerm) => {
+  videos.value = await search(searchTerm);
+}
+
+const onVideoSelect = (video) => {
+  selectedVideo.value = video;
 }
 </script>
 

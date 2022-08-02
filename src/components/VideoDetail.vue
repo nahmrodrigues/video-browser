@@ -10,17 +10,16 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'VideoDetail',
-  props: ['video'],
-  computed: {
-    videoUrl() {
-      const { videoId } = this.video.id;
-      return `https://www.youtube.com/embed/${videoId}`;
-    }
-  }
-};
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps(['video']);
+
+const videoUrl = computed(() => {
+  const { videoId } = props.video.id;
+  return `https://www.youtube.com/embed/${videoId}`;
+})
+
 </script>
 
 <style scoped>

@@ -7,22 +7,16 @@
   </li>
 </template>
 
-<script>
-export default {
-  name: 'VideoListItem',
-  props: ['video'],
-  emits: ['videoSelect'],
-  methods: {
-    onVideoSelect() {
-      this.$emit('videoSelect', this.video);
-    }
-  },
-  computed: {
-    thumbnailUrl() {
-      return this.video.snippet.thumbnails.default.url;
-    }
-  }
-};
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps(['video'])
+const emit = defineEmits(['videoSelect'])
+const thumbnailUrl = computed(() => props.video.snippet.thumbnails.default.url);
+
+const onVideoSelect = () => {
+  emit('videoSelect', props.video)
+}
 </script>
 
 <style scoped>

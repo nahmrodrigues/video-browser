@@ -5,17 +5,12 @@
   </form> 
 </template>
 
-<script>
+<script setup>
+const emit = defineEmits(['termChange'])
 
-export default {
-  name: 'SearchBar',
-  emits: ['termChange'],
-  methods: {
-    onSubmit(event) {
-      this.$emit('termChange', event.target.value);
-    }
-  }
-};
+const onSubmit = (e) => {
+  emit('termChange', e.target.value);
+}
 </script>
 
 <style scoped>

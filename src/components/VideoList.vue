@@ -9,23 +9,16 @@
   </ul> 
 </template>
 
-<script>
-
+<script setup>
 import VideoListItem from './VideoListItem.vue'
 
-export default {
-  name: 'VideoList',
-  components: {
-    VideoListItem
-  },
-  props: ['videos'],
-  emits: ['videoSelect'],
-  methods: {
-    onVideoSelect(video) {
-      this.$emit('videoSelect', video)
-    }
-  }
-};
+defineProps(['videos']);
+
+const emit = defineEmits(['videoSelect']);
+
+const onVideoSelect = (video) => {
+  emit('videoSelect', video)
+}
 </script>
 
 <style>
